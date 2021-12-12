@@ -1,12 +1,17 @@
 import pytest 
 import subprocess
+import socket
+
+
 
 
 @pytest.fixture
 def run_test():
+    hostname = socket.gethostname()
+    local_ip = socket.gethostbyname(hostname)
     server_process = subprocess.Popen(['iperf3', '-s', '-1'])
     with open('output.txt', 'w') as f:
-        client_process = subprocess.Popen(['iperf3', '-c', '192.168.0.12'], stdout=f, text=True) 
+        client_process = subprocess.Popen(['iperf3', '-c', local_ip], stdout=f, text=True) 
     server_process.wait()
     client_process.wait()
 
