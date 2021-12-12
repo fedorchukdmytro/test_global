@@ -10,7 +10,7 @@ def run_test():
     server_process.wait()
     client_process.wait()
 
-@pytest.fixture(autouse=True)
+@pytest.fixture()
 def read_file():
     with open('output.txt', 'r', encoding='utf8') as f:
         text = f.readlines()
